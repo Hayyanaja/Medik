@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KMS Digital Posyandu - Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="login" id="login">
+  <div class="hero">
+    <div class="logo">👶</div>
+    <h1>KMS Digital Posyandu</h1>
+    <p>Pantau tumbuh kembang balita dengan pencatatan yang lebih rapi, mudah, dan aman.</p>
+    <ul><li>📋 Pencatatan terstruktur per balita</li><li>📈 Grafik zona KMS otomatis</li><li>🔐 Akses sesuai peran pengguna</li></ul>
+  </div>
+  <div class="card">
+    <h1>Selamat datang 👋</h1>
+    <p class="sub">Masuk untuk melanjutkan</p>
+    <div class="alert e hide" id="loginErr">Username atau password salah. Silakan isi ulang.</div>
+    <div class="f"><label>Username</label><input id="u" type="text" placeholder="username / NIK balita"></div>
+    <div class="f"><label>Password</label><input id="p" type="password" placeholder="••••••••"></div>
+    <button class="btn" id="btnLogin" style="width:100%">Masuk</button>
+    <div class="cred">
+      <b>Akun demo (khusus mockup)</b><br>
+      Kader: <code>kader01</code> / <code>Kader#2026</code><br>
+      Petugas/Bidan: <code>bidan01</code> / <code>Bidan#2026</code><br>
+      Orang tua: username = <i>NIK balita</i> (16 digit), password = <i>tanggal lahir balita</i> format <code>ddmmyyyy</code> (mis. lahir 12 September 2025 → <code>12092025</code>). Akun dibuat otomatis saat balita didaftarkan.
+    </div>
+    <p class="note"><button class="lnk" id="btnReset">Reset semua data demo</button></p>
+  </div>
+</section>
+
+<div class="app hide" id="app">
+  <aside>
+    <div class="brand"><span>KMS Digital<small>Posyandu</small></span></div>
+    <nav id="nav"></nav>
+    <div class="user"><span id="uName"></span><br><span class="role" id="uRole"></span><button class="lnk" id="btnOut" style="color:#fff;display:block;margin-top:6px">Keluar</button></div>
+  </aside>
+
+  <main>
+    <section class="screen" id="dashboard">
+      <h1>Dashboard</h1><p class="sub">Ringkasan pemantauan</p>
+      <div class="grid g3" style="margin-bottom:20px" id="stats"></div>
+      <div class="card"><h2>Pengukuran yang belum ditinjau</h2><div id="pending"></div></div>
+    </section>
+
+    <section class="screen" id="balita">
+      <h1>Data Balita</h1><p class="sub">Daftar balita terdaftar</p>
+      <div class="card">
+        <div class="bar"><input id="q" type="search" placeholder="🔍 Cari nama / NIK..."></div>
+        <div id="balitaList"></div>
+      </div>
+      <div class="card" id="formBalita">
+        <h2>Daftarkan Balita Baru</h2>
+        <div class="alert e hide" id="errBalita"></div>
+        <div class="grid g2">
+          <div class="f"><label>NIK balita (16 digit) *</label><input id="bReg" inputmode="numeric" maxlength="16" placeholder="16 digit angka"></div>
+          <div class="f"><label>Nama balita *</label><input id="bNama"></div>
+          <div class="f"><label>Jenis kelamin *</label><select id="bJk"><option value="L">Laki-laki</option><option value="P">Perempuan</option></select></div>
+          <div class="f"><label>Tanggal lahir *</label><input id="bLahir" type="date"></div>
+          <div class="f"><label>Nama orang tua/wali</label><input id="bOrtu"></div>
+          <div class="f"><label>Kontak</label><input id="bKontak" placeholder="No. HP"></div>
+          <div class="f"><label>Alamat / domisili</label><input id="bAlamat"></div>
+          <div class="f"><label>BB lahir (kg) / PB lahir (cm)</label><div class="grid g2"><input id="bBbl" placeholder="3.1"><input id="bPbl" placeholder="49"></div></div>
+        </div>
+        <button class="btn" id="btnSimpanBalita">Simpan Balita</button>
+        <p class="note">Akun orang tua dibuat otomatis: username = NIK balita, password = tanggal lahir balita (ddmmyyyy).</p>
+      </div>
+    </section>
+
+    <section class="screen" id="ukur">
+      <h1>Input Pengukuran</h1><p class="sub">Catat hasil penimbangan dan pengukuran saat kunjungan</p>
+      <div class="card">
+        <div class="alert w hide" id="errUkur"></div>
+        <div class="alert i hide" id="okUkur"></div>
+        <div class="grid g2">
+          <div class="f"><label>Balita *</label><select id="uBalita"></select></div>
+          <div class="f"><label>Tanggal kunjungan / pengukuran *</label><input id="uTgl" type="date"></div>
+          <div class="f"><label>Berat badan (kg) *</label><input id="uBb" inputmode="decimal"></div>
+          <div class="f"><label>Panjang/tinggi badan (cm) *</label><input id="uTb" inputmode="decimal"></div>
+          <div class="f"><label>Lingkar kepala (cm) <small>(opsional)</small></label><input id="uLk" inputmode="decimal"></div>
+          <div class="f"><label>Petugas / kader pencatat</label><input id="uPetugas" readonly></div>
+        </div>
+        <button class="btn" id="btnSimpanUkur">Simpan Pengukuran</button>
+        <p class="note">Sistem memeriksa salah ketik (typo) sebelum data disimpan.</p>
+      </div>
+    </section>
+
+    <section class="screen" id="hasil">
+      <h1>Hasil &amp; Status Gizi</h1><p class="sub">Tinjau hasil pengukuran dan catat tindak lanjut</p>
+      <div class="card"><div class="f" style="margin:0"><label>Pilih kunjungan</label><select id="hSel"></select></div></div>
+      <div id="hasilBody"></div>
+    </section>
+
+    <section class="screen" id="riwayat">
+      <h1>Riwayat &amp; Grafik Pertumbuhan</h1><p class="sub" id="rSub"></p>
+      <div class="card" id="rPilih"><div class="f" style="margin:0"><label>Pilih balita</label><select id="rSel"></select></div></div>
+      <div class="card"><h2>Grafik pertumbuhan (zona KMS)</h2><div id="chart"></div></div>
+      <div class="card"><h2>Riwayat pengukuran</h2><div id="rTabel"></div></div>
+    </section>
+
+    <section class="screen" id="laporan">
+      <h1>Laporan</h1><p class="sub">Hasil pengukuran, status gizi, dan tindak lanjut</p>
+      <div class="card">
+        <div class="kop print-only">
+          <div><b>LAPORAN PEMANTAUAN PERTUMBUHAN BALITA</b><br>KMS Digital Posyandu<br><span id="lInfo"></span></div>
+          <div>Dicetak: <span id="lTgl"></span><br>Oleh: <span id="lOleh"></span></div>
+        </div>
+        <div id="lTabel"></div>
+        <div class="ttd print-only" id="lTtd"><div>Kader Posyandu<br><br><br><br>( ........................ )</div><div>Bidan/Petugas Kesehatan<br><br><br><br>( ........................ )</div></div>
+        <p class="note print-only">Dokumen dicetak dari KMS Digital Posyandu. Sistem ini bukan alat diagnosis dan tidak menggantikan penilaian tenaga kesehatan.</p>
+        <p style="margin-top:16px"><button class="btn" onclick="window.print()">🖨 Cetak / Simpan PDF</button></p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="toast" class="hide"></div>
+<script src="script.js"></script>
+</body>
+</html>
